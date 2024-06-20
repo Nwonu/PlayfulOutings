@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playful Outings - Game Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Playful Outings Logo">
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="categories.html">Game Categories</a></li>
+        <li><a href="itinerary.html">Itinerary</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+    <div class="visitor-count">Visitor Count: <span id="visitor-count"></span></div>
+  </header>
+  <main>
+    <h1>Game Details</h1>
+    <div id="game-info">
+      <!-- Game information will be displayed here -->
+    </div>
+  </main>
+  <footer>
+    <div class="ticker">
+      Current date, time, and location: <span id="datetime-location"></span>
+    </div>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get('category');
+      const gameInfo = document.getElementById('game-info');
+
+      const games = {
+        indoor: [
+          {
+            name: 'Charades',
+            material: 'None',
+            time: '30 minutes',
+            instructions: 'Players act out words without speaking while others guess.',
+            demo: 'demo/charades.docx'
+          },
+          // Add more games here
+        ],
+        // Add more categories here
+      };
+
+      if (category && games[category]) {
+        const selectedGames = games[category];
+        selectedGames.forEach(game => {
+          const gameElement = document.createElement('div');
+          gameElement.innerHTML = `
+            <h2>${game.name}</h2>
+            <p><strong>Material Needed:</strong> ${game.material}</p>
+            <p><strong>Time Required:</strong> ${game.time}</p>
+            <p><strong>How to Play:</strong> ${game.instructions}</p>
+            <a href="${game.demo}" download>Download Instructions</a>
+          `;
+          gameInfo.appendChild(gameElement);
+        });
+      } else {
+        gameInfo.textContent = 'No games available for this category.';
+      }
+    });
+  </script>
+</body>
+</html>
